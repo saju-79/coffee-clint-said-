@@ -11,8 +11,14 @@ import AddCard from "../pages/AddCard";
         path:"/" , 
         Component:Root,
         children:[
-            {path:'/', Component:Home},
-            {path:'/addCard', Component:AddCard},
+            {path:'/',
+             loader:()=>fetch("http://localhost:5000/users"),
+            Component:Home
+            },
+            {
+             path:'/addCard', 
+             Component:AddCard
+            },
 
         ]
       }

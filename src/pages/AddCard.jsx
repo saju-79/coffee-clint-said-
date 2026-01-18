@@ -7,11 +7,23 @@ import { Link } from 'react-router';
         e.preventDefault();
         console.log("asidsdfshj")
         const from = e.target;
-        // const formData =  new FormData(from);
-        
-  const data = Object.fromEntries(new FormData(from));
 
-        console.log(data)
+//   const data = Object.fromEntries(new FormData(from));
+const coffeeDitels = Object.fromEntries(new FormData(from));
+ 
+       fetch("http://localhost:5000/users" , {
+         method:"POST",
+         headers:{
+            "content-type" : "application/json",
+         },
+         body:JSON.stringify(coffeeDitels)
+
+       })
+       .then(res => res.json())
+       .then(data =>{
+        console.log("data running" ,  data )
+       })   
+     
     }
     return ( 
         <div className='w-10/12 mx-auto bg-gray-300 rounded-sm shadow-sm p-4'>
@@ -31,12 +43,12 @@ import { Link } from 'react-router';
                       <input name='name' placeholder='Enter coffee name' className='  px-6 py-4  rounded-sm   bg-gray-100 ' type="text" />
                   </fieldset>
                  <fieldset className="fieldset mt-2">
-                     <legend className="fieldset-legend text-[#374151] text-xl">Chef</legend>
-                      <input name='chef' placeholder='Enter coffee chef' className='  px-6 py-4  rounded-sm   bg-gray-100 ' type="text" />
-                  </fieldset>
-                 <fieldset className="fieldset mt-2">
                      <legend className="fieldset-legend text-[#374151] text-xl">Supplier</legend>
                       <input name='supplier' placeholder='Enter coffee supplier' className='  px-6 py-4  rounded-sm   bg-gray-100 ' type="text" />
+                  </fieldset>
+                 <fieldset className="fieldset mt-2">
+                     <legend className="fieldset-legend text-[#374151] text-xl">price</legend>
+                      <input name='price' placeholder='Enter coffee price' className='  px-6 py-4  rounded-sm   bg-gray-100 '  type='number'/>
                   </fieldset>
                  <fieldset className="fieldset mt-2">
                      <legend className="fieldset-legend text-[#374151] text-xl">Taste</legend>
@@ -53,7 +65,7 @@ import { Link } from 'react-router';
            </div>
                    <fieldset className="fieldset mt-2">
                      <legend className="fieldset-legend text-[#374151] text-xl">Photo</legend>
-                      <input name='photo' placeholder='Photo URL' className='  px-6 py-4  rounded-sm   bg-gray-100 ' type="text" />
+                      <input name='photo' placeholder='Photo URL' className='  px-6 py-4  rounded-sm   bg-gray-100 ' type='url' />
                   </fieldset>
                    <input className='mt-4  px-6 py-4  w-full  rounded-sm border-2 border-[#331A15]   bg-[#D2B48C] ' type="submit" value="Add Coffee"   />
              </form>
@@ -62,3 +74,10 @@ import { Link } from 'react-router';
  };
  
  export default AddCard;
+
+
+
+
+
+
+ 
