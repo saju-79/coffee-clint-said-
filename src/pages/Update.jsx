@@ -29,7 +29,18 @@ const Update = ({data}) => {
                       });
          //   const data = Object.fromEntries(new FormData(from));
          const coffeeupdate = Object.fromEntries(new FormData(from));
-         console.log(coffeeupdate)
+     
+         fetch(`http://localhost:5000/users/${_id}` ,{
+            method:"PUT",
+            headers:{
+                 "content-type" : "application/json",
+            },
+            body:JSON.stringify(coffeeupdate)
+         })
+         .then(res => res.json())
+         .then(data =>{
+            console.log(data , "update")
+         })
           
     }
     return (
