@@ -5,7 +5,7 @@ import { MdDeleteOutline } from 'react-icons/md';
 import { Link } from 'react-router';
 import Swal from 'sweetalert2';
 
-const Card = ({data}) => {
+const Card = ({data  }) => {
     const {
             name,
             taste,
@@ -42,6 +42,8 @@ const Card = ({data}) => {
                      icon: "success"
             
           });
+          /*    const promis = datas.filter(d=> d._id !== _id);
+             setDtata(promis) */
             })
           
   }

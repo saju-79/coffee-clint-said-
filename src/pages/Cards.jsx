@@ -1,11 +1,11 @@
-import React from 'react';
+ 
 import { TiCoffee } from 'react-icons/ti';
 import Card from './Card';
 import { Link } from 'react-router';
  
 
 const Cards = ({datas}) => {
- 
+    
     return (
         <div>
              <div className=" text-center justify-center items-center flex flex-col my-10 space-y-4"> 
@@ -16,7 +16,9 @@ const Cards = ({datas}) => {
            
              <div className=" grid grid-cols-2 gap-5">
                 {
-                    datas.map(data => <Card key={data._id} data={data}></Card>)
+                    datas.map(data => <Card key={data._id} 
+                        data={data}
+                        ></Card>)
                 }
              </div>
         </div>
