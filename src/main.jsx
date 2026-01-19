@@ -4,9 +4,12 @@ import './index.css'
 import App from './App.jsx'
 import { RouterProvider } from 'react-router'
 import { router } from './router/Router.jsx'
+import ContraxProvaider from './contaxAPI/ContraxProvaider.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <ContraxProvaider>
+      <RouterProvider router={router}></RouterProvider>
+    </ContraxProvaider>
   </StrictMode>,
 )
