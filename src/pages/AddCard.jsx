@@ -1,13 +1,22 @@
  import React from 'react';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import { Link } from 'react-router';
+import Swal from 'sweetalert2';
  
  const AddCard = () => {
     const handleAddcard = e=>{
         e.preventDefault();
         console.log("asidsdfshj")
         const from = e.target;
-
+            
+        //   Try me!
+     Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: " Add New Coffee successful",
+          showConfirmButton: false,
+          timer: 1500
+             });
 //   const data = Object.fromEntries(new FormData(from));
 const coffeeDitels = Object.fromEntries(new FormData(from));
  
@@ -23,7 +32,7 @@ const coffeeDitels = Object.fromEntries(new FormData(from));
        .then(data =>{
         console.log("data running" ,  data )
        })   
-     
+      from.reset()
     }
     return ( 
         <div className='w-10/12 mx-auto bg-gray-300 rounded-sm shadow-sm p-4'>
@@ -43,12 +52,12 @@ const coffeeDitels = Object.fromEntries(new FormData(from));
                       <input name='name' placeholder='Enter coffee name' className='  px-6 py-4  rounded-sm   bg-gray-100 ' type="text" />
                   </fieldset>
                  <fieldset className="fieldset mt-2">
-                     <legend className="fieldset-legend text-[#374151] text-xl">Supplier</legend>
-                      <input name='supplier' placeholder='Enter coffee supplier' className='  px-6 py-4  rounded-sm   bg-gray-100 ' type="text" />
-                  </fieldset>
-                 <fieldset className="fieldset mt-2">
                      <legend className="fieldset-legend text-[#374151] text-xl">price</legend>
                       <input name='price' placeholder='Enter coffee price' className='  px-6 py-4  rounded-sm   bg-gray-100 '  type='number'/>
+                  </fieldset>
+                 <fieldset className="fieldset mt-2">
+                     <legend className="fieldset-legend text-[#374151] text-xl">Supplier</legend>
+                      <input name='supplier' placeholder='Enter coffee supplier' className='  px-6 py-4  rounded-sm   bg-gray-100 ' type="text" />
                   </fieldset>
                  <fieldset className="fieldset mt-2">
                      <legend className="fieldset-legend text-[#374151] text-xl">Taste</legend>
@@ -65,7 +74,7 @@ const coffeeDitels = Object.fromEntries(new FormData(from));
            </div>
                    <fieldset className="fieldset mt-2">
                      <legend className="fieldset-legend text-[#374151] text-xl">Photo</legend>
-                      <input name='photo' placeholder='Photo URL' className='  px-6 py-4  rounded-sm   bg-gray-100 ' type='url' />
+                      <input name='photo' placeholder='Photo URL' className='  px-6 py-4  rounded-sm   bg-gray-100 ' type="text" />
                   </fieldset>
                    <input className='mt-4  px-6 py-4  w-full  rounded-sm border-2 border-[#331A15]   bg-[#D2B48C] ' type="submit" value="Add Coffee"   />
              </form>
