@@ -2,8 +2,7 @@ import React from 'react';
 import Navber from '../componet/Navber';
 import { Outlet } from 'react-router';
 import Fotter from '../componet/Fotter';
-import Baner from '../componet/Baner';
-import Info from '../componet/Info';
+
 
 const Root = () => {
     return (
@@ -11,8 +10,7 @@ const Root = () => {
               {/* hader */}
             <section>
                  <Navber></Navber>
-                 <Baner></Baner>
-                  <Info></Info>
+                
             </section>
             {/* main section  */}
             <section className='w-10/12 mx-auto p-2 '>

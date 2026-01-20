@@ -2,13 +2,22 @@ import React, { use } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router';
 import { AuthContext } from '../contaxAPI/Contrax';
+import Swal from 'sweetalert2';
 
 const SignUp = () => {
-	const {handelUserSignup , setUser, handekgoogleLogin} = use(AuthContext);
+	const {handelUserSignup , setUser, handekgoogleLogin ,user} = use(AuthContext);
+   
 	 const handelusergoole = ()=>{
 		 handekgoogleLogin()
 		.then((result )=>{
-			console.log(result.user)
+			setUser(result.user)
+			 Swal.fire({
+							  position: "top-end",
+							  icon: "success",
+							  title: " Your userId login successful",
+							  showConfirmButton: false,
+							  timer: 1500
+								 });
 		})
 		.catch(error =>{
 			console.log(error)
@@ -18,14 +27,43 @@ const SignUp = () => {
     const handelSignup = (e)=>{
         e.preventDefault()
         const from = e.target;
-        const name =from.name.value;
-        const email =  from.email.value;
-        const photo =  from.url.value;
-        const password= from.password.value;
-        console.log(name ,photo)
+		const{ email , password , ...resss}= Object.fromEntries(new FormData(from));
+		
+		
+        console.log(email ,password )
           handelUserSignup(email , password)
 		   .then((result) =>{
+			 const userss ={
+                email,
+			...resss ,
+			lastSignInTime:user?.metadata?.lastSignInTime ,
+			creationTime:user?.metadata?.creationTime ,
+		    
+			
+
+
+		 }
 			setUser(result.user)
+			fetch('http://localhost:5000/datas' , {
+				method:'POST',
+				headers:{
+					  "content-type" : "application/json",
+				},
+				body:JSON.stringify(userss)
+			})
+			.then(res =>res.json())
+			.then(d =>{
+				console.log(d)
+				if (d.insertedId) {
+					 Swal.fire({
+							  position: "top-end",
+							  icon: "success",
+							  title: " Your userId create successful",
+							  showConfirmButton: false,
+							  timer: 1500
+								 });
+				}
+			})
 		  })
 		  .catch(error=>{
 			console.log(error)
@@ -39,19 +77,27 @@ const SignUp = () => {
 	<form onSubmit={handelSignup} noValidate="" action="" className="space-y-6">
 		<div className="space-y-1 text-sm">
 			<label htmlFor="username" className="block dark:text-gray-600">Username</label>
-			<input type="text" name="name" id="username" placeholder="Username" className="w-full px-4 py-3 bg-gray-100 rounded-md     dark:text-gray-800 focus:dark:border-violet-600" />
+			<input type="text" name="name"  placeholder="Username" className="w-full px-4 py-3 bg-gray-100 rounded-md     dark:text-gray-800 focus:dark:border-violet-600" />
 		</div>
 		<div className="space-y-1 text-sm">
-			<label htmlFor="username" className="block dark:text-gray-600">Username</label>
-			<input type="email" name="email" id="username" placeholder="email" className="w-full px-4 py-3 bg-gray-100 rounded-md     dark:text-gray-800 focus:dark:border-violet-600" />
+			<label htmlFor="username" className="block dark:text-gray-600">Email</label>
+			<input type="email" name="email"  placeholder="email" className="w-full px-4 py-3 bg-gray-100 rounded-md     dark:text-gray-800 focus:dark:border-violet-600" />
 		</div>
 		<div className="space-y-1 text-sm">
-			<label htmlFor="username" className="block dark:text-gray-600">Photo url</label>
-			<input type="text" name="url" id="username" placeholder="Your Photo url" className="w-full px-4 py-3 bg-gray-100 rounded-md     dark:text-gray-800 focus:dark:border-violet-600" />
+			<label htmlFor="username" className="block dark:text-gray-600">Enter Your Phone Number</label>
+			<input type="number" name="number"  placeholder="Your Phone Number" className="w-full px-4 py-3 bg-gray-100 rounded-md     dark:text-gray-800 focus:dark:border-violet-600" />
+		</div>
+		<div className="space-y-1 text-sm">
+			<label htmlFor="username" className="block dark:text-gray-600">Enter Your Curet Locattion</label>
+			<input type="text" name="aria"  placeholder="Your Location" className="w-full px-4 py-3 bg-gray-100 rounded-md     dark:text-gray-800 focus:dark:border-violet-600" />
+		</div>
+		<div className="space-y-1 text-sm">
+			<label htmlFor="username" className="block dark:text-gray-600"> Photo url</label>
+			<input type="text" name="url"  placeholder="Your Photo url" className="w-full px-4 py-3 bg-gray-100 rounded-md     dark:text-gray-800 focus:dark:border-violet-600" />
 		</div>
 		<div className="space-y-1 text-sm">
 			<label htmlFor="password" className="block dark:text-gray-600">Password</label>
-			<input type="password" name="password" id="password" placeholder="Password" className="w-full bg-gray-100 px-4 py-3 rounded-md    dark:text-gray-800 focus:dark:border-violet-600" />
+			<input type="password" name="password"   placeholder="Password" className="w-full bg-gray-100 px-4 py-3 rounded-md    dark:text-gray-800 focus:dark:border-violet-600" />
 			<div className="flex justify-end text-xs dark:text-gray-600">
 				{/* <a rel="noopener noreferrer"  >Forgot Password?</a> */}
 			</div>

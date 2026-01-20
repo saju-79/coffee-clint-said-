@@ -2,14 +2,22 @@ import React, { use } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router';
 import { AuthContext } from '../contaxAPI/Contrax';
+import Swal from 'sweetalert2';
      
 const SignIn = () => {
-	const{handelLogin ,handekgoogleLogin , setUser,} = use(AuthContext)
-	 
+	const{handelLogin ,handekgoogleLogin , setUser, user} = use(AuthContext)
+
 	const handelgoogle=()=>{
 		 handekgoogleLogin()
 		 .then((result)=>{
 			setUser(result.user)
+			 Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title: " Your userId login successful",
+				showConfirmButton: false,
+				timer: 1500
+				 });
 		 })
 		 .catch(error =>{
 			console.log(error)
@@ -22,7 +30,35 @@ const SignIn = () => {
 		const password= from.password.value;
 		handelLogin(email , password)
 		.then((result)=>{
+            const users = {
+				email ,                                                       
+			    lastSignInTime:user?.metadata?.lastSignInTime ,
+				photo:user?.photoURL
+ 		}
+          fetch('http://localhost:5000/datas' , {
+			method:'PATCH' ,
+			 headers:{
+				 "content-type" : "application/json",
+			 },
+			 body:JSON.stringify(users)
+		  }
+		  )
+		  .then(res =>res.json())
+		  .then(data=>{
+			console.log(data)
+		  }
+		  )
+
+
+
            setUser(result.user)
+		             Swal.fire({
+					  position: "top-end",
+					  icon: "success",
+					  title: "  login successful",
+					  showConfirmButton: false,
+					  timer: 1500
+						 });
 		})
 		 .catch(error=>{
 			console.log(error);

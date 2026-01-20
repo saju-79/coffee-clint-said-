@@ -6,6 +6,7 @@ import Ditels from "../pages/Ditels";
 import Updates from "../pages/updates";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
+import Users from "../pages/Users";
  export const router = createBrowserRouter([
       {
         path:"/" , 
@@ -39,6 +40,11 @@ import SignUp from "../pages/SignUp";
                 path:"/signup" ,
                 Component:SignUp,
             },
+            {
+                path:'/users',
+                loader:()=>fetch("http://localhost:5000/datas"),
+                Component:Users,
+            }
             
 
         ]

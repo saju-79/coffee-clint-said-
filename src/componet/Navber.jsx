@@ -1,16 +1,23 @@
 import React, { use } from 'react';
 import { AuthContext } from '../contaxAPI/Contrax';
 import { Link } from 'react-router';
+import Swal from 'sweetalert2';
  
  
 
 const Navber = () => {
     const {user ,  logout} = use(AuthContext);
-    console.log(user)
+  
     const handelLogOut =()=>{
         logout()
         .then(()=>{
-
+              Swal.fire({
+                                          position: "top-end",
+                                          icon: "success",
+                                          title: " Your userId LogOut",
+                                          showConfirmButton: false,
+                                          timer: 1500
+                                             });
         })
         .catch(erre=>{
             console.log(erre)
